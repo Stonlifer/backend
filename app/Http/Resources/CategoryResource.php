@@ -20,6 +20,7 @@ class CategoryResource extends JsonResource
             'name' => $this->name,
             'image' => $this->image,
             'imagePath' => asset('images/' . $this->image),
+            'storeId' => $this->store_id,
             'createdAt' => $this->created_at,
             'updatedAt' => $this->updated_at,
         ];

@@ -10,6 +10,8 @@ use App\Http\Requests\UpdateProductRequest;
 use App\Http\Resources\ProductResource;
 use App\Http\Resources\ProductCollection;
 
+use Illuminate\Http\Request;
+
 class ProductController extends Controller
 {
     /**
@@ -17,10 +19,19 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
-        return new ProductCollection(Product::paginate());
+
+        $categoryId = $request->query('categoryId');
+
+        if ($categoryId) {
+            return new ProductCollection(Product::where('category_id', $categoryId)->paginate());
+        }else{
+            return new ProductCollection(Product::paginate());
+        }
+
+        // return new ProductCollection(Product::paginate());
     }
 
 

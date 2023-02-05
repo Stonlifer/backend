@@ -10,6 +10,8 @@ use App\Http\Requests\UpdateCategoryRequest;
 use App\Http\Resources\CategoryResource;
 use App\Http\Resources\CategoryCollection;
 
+use Illuminate\Http\Request;
+
 class CategoryController extends Controller
 {
     /**
@@ -17,11 +19,20 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
+        $storeId = $request->query('storeId');
 
-        return new CategoryCollection(Category::paginate());
+        if ($storeId) {
+            return new CategoryCollection(Category::where('store_id', $storeId)->paginate());
+        }else{
+            return new CategoryCollection(Category::paginate());
+        }
+
+
+
+        // return new CategoryCollection(Category::paginate());
     }
 
 
